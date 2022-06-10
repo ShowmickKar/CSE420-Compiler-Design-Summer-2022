@@ -28,7 +28,7 @@ class LexicalAnalyzer:
         self.numerical_values = set()
         self.others = set()
 
-    def scan(self):
+    def scan(self):  # Scans the word stream generated from the input program and categorizes them
         for i in range(len(word_stream)):
             if word_stream[i] in self.reserved_words:
                 self.keywords.add(word_stream[i])
@@ -76,7 +76,7 @@ class LexicalAnalyzer:
         print(f"Others: {display_set(self.others)}")
 
 
-def read(filename):
+def read(filename):  # Reads the input program from text file
     file = open("input.txt", "r")
     word_stream = []
     for line in file:
@@ -85,6 +85,7 @@ def read(filename):
     return word_stream
 
 
+""" Driver Code """
 word_stream = read("input.txt")
 print(f"Word Stream: {word_stream}\n")
 analyzer = LexicalAnalyzer(word_stream)

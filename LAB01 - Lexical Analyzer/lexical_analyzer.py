@@ -34,7 +34,7 @@ class LexicalAnalyzer:
                 self.keywords.add(word_stream[i])
                 word_stream[i] = None
                 continue
-            if word_stream[i] in ["+", "-", "*", "/", "="]:
+            if word_stream[i] in ["+", "-", "*", "/", "=", "+-", "-=", "*=", "/="]:
                 self.math_operators.add(word_stream[i])
                 word_stream[i] = None
                 continue
@@ -55,13 +55,12 @@ class LexicalAnalyzer:
                     int_object = int(word_stream[i])
                     self.numerical_values.add(word_stream[i])
                 except:
-                    print(f"WHAT!: {word_stream[i]}")
                     self.others.add(word_stream[i])
                 word_stream[i] = None
                 continue
         for i in range(len(word_stream)):
             if word_stream[i] != None:
-                if word_stream[i][0] in list(string.ascii_lowercase):
+                if word_stream[i][0] in list(string.ascii_lowercase) or word_stream[i][0] in list(string.ascii_uppercase):
                     self.identifiers.add(word_stream[i])
                 else:
                     self.others.add(word_stream[i])
@@ -73,7 +72,11 @@ class LexicalAnalyzer:
         print(f"Math Operators: {display_set(self.math_operators)}")
         print(f"Logical Operators: {display_set(self.logical_operators)}")
         print(f"Numerical Values: {display_set(self.numerical_values)}")
-        print(f"Others: {display_set(self.others)}")
+        # print(f"Others: {display_set(self.others)}")
+        print("Others: ", end="")
+        for el in self.others:
+            print(el, end=" ")
+        print()
 
 
 def read(filename):  # Reads the input program from text file
